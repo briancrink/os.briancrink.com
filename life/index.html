@@ -7,13 +7,705 @@
   <link rel="icon" href="../resources/images/icons/favicon-white.png" type="image/png" media="(prefers-color-scheme: dark)">
   <link rel="apple-touch-icon" href="../resources/images/icons/apple-touch-icon.png">
   <link rel="apple-touch-icon" href="../resources/images/icons/apple-touch-icon-dark.png" media="(prefers-color-scheme: dark)">
-  <title>DevOS | Brian Crink</title>
-  <script>
-    window.location.replace("https://portal.briancrink.com#dev");
-  </script>
-  <meta http-equiv="refresh" content="0; url=https://portal.briancrink.com#dev">
-  <link rel="canonical" href="https://portal.briancrink.com#dev">
+  <title>LifeOS | Brian Crink</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --page-bg: #000000;
+      --page-fg: #ffffff;
+      --card: rgba(16, 6, 28, 0.78);
+      --card-border: rgba(196, 160, 255, 0.22);
+      --muted: rgba(255, 255, 255, 0.52);
+      --life: #7dd3fc;
+    }
+
+    html, body {
+      height: 100%;
+      height: 100dvh;
+      max-height: 100dvh;
+      overflow: hidden;
+      background-color: var(--page-bg);
+      color: var(--page-fg);
+      transition: background-color 0.45s ease, color 0.45s ease;
+    }
+
+    body {
+      font-family: Inter, system-ui, sans-serif;
+      line-height: 1.35;
+      opacity: 0;
+      animation: fadeIn 1.1s forwards;
+    }
+
+    body.light,
+    html:has(body.light) {
+      --page-bg: #ffffff;
+      --page-fg: #1a1a1a;
+      --card: rgba(255, 255, 255, 0.86);
+      --card-border: rgba(20, 16, 40, 0.08);
+      --muted: rgba(26, 26, 26, 0.52);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @property --pc1 { syntax: '<color>'; inherits: false; initial-value: #ff006e; }
+    @property --pc2 { syntax: '<color>'; inherits: false; initial-value: #8338ec; }
+    @property --pc3 { syntax: '<color>'; inherits: false; initial-value: #3a86ff; }
+    @property --pc4 { syntax: '<color>'; inherits: false; initial-value: #06d6a0; }
+    @property --pc5 { syntax: '<color>'; inherits: false; initial-value: #ffbe0b; }
+
+    @keyframes portalChromaFade {
+      0%   { --pc1: #ff006e; --pc2: #8338ec; --pc3: #3a86ff; --pc4: #06d6a0; --pc5: #ffbe0b; }
+      20%  { --pc1: #ffbe0b; --pc2: #ff006e; --pc3: #8338ec; --pc4: #3a86ff; --pc5: #06d6a0; }
+      40%  { --pc1: #06d6a0; --pc2: #ffbe0b; --pc3: #ff006e; --pc4: #8338ec; --pc5: #3a86ff; }
+      60%  { --pc1: #3a86ff; --pc2: #06d6a0; --pc3: #ffbe0b; --pc4: #ff006e; --pc5: #8338ec; }
+      80%  { --pc1: #8338ec; --pc2: #3a86ff; --pc3: #06d6a0; --pc4: #ffbe0b; --pc5: #ff006e; }
+      100% { --pc1: #ff006e; --pc2: #8338ec; --pc3: #3a86ff; --pc4: #06d6a0; --pc5: #ffbe0b; }
+    }
+
+    .site-nav-link.portal {
+      background-image: linear-gradient(90deg, var(--pc1), var(--pc2), var(--pc3), var(--pc4), var(--pc5));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      animation: portalChromaFade 8s linear infinite;
+      text-transform: uppercase;
+      font-size: 0.95rem;
+      letter-spacing: 0.08rem;
+    }
+
+    .stage {
+      height: 100dvh;
+      max-height: 100dvh;
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+      padding: 10px 16px 14px;
+      gap: 22px;
+    }
+
+    .site-nav {
+      color: #ffffff;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: 0.16rem;
+    }
+
+    body.light .site-nav { color: #1a1a1a; }
+
+    .site-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      margin: 0;
+    }
+
+    .site-nav-link {
+      color: inherit;
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .site-nav-link:hover,
+    .map-link:hover { opacity: 0.85; }
+
+    .site-nav-link.life {
+      color: #7dd3fc;
+      -webkit-text-fill-color: #7dd3fc;
+      font-size: 1.1rem;
+      letter-spacing: 0.04rem;
+    }
+
+    .map-link {
+      display: inline-flex;
+      align-items: center;
+      line-height: 0;
+      text-decoration: none;
+    }
+
+    .map-icon { width: 2.6rem; height: 2.6rem; display: block; }
+
+    .toggle-btn {
+      position: fixed;
+      top: 12px;
+      right: 14px;
+      z-index: 40;
+      background: transparent;
+      border: 0;
+      width: 44px;
+      height: 44px;
+      cursor: pointer;
+      color: #ffffff;
+      padding: 8px;
+    }
+
+    body.light .toggle-btn { color: #1a1a1a; }
+
+    .toggle-btn svg { width: 26px; height: 26px; display: block; }
+
+    .bento {
+      min-height: 0;
+      display: grid;
+      grid-template-columns: 1fr 1.15fr 1fr;
+      grid-template-rows: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      min-width: 0;
+      min-height: 0;
+      overflow: hidden;
+      border-radius: 22px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    body.light .card {
+      box-shadow: 0 12px 32px rgba(24, 18, 42, 0.10), 0 2px 6px rgba(24, 18, 42, 0.05);
+      backdrop-filter: none;
+    }
+
+    .card-kicker {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .card h2 {
+      font-size: clamp(1rem, 1.5vw, 1.35rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
+
+    .card p {
+      font-size: clamp(0.72rem, 1vw, 0.86rem);
+      color: var(--muted);
+    }
+
+    .pill {
+      align-self: flex-start;
+      margin-top: 8px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    }
+
+    .pill.dev {
+      background: rgba(125, 211, 252, 0.16);
+      color: #7dd3fc;
+      border: 1px solid rgba(125, 211, 252, 0.32);
+    }
+
+    body.light .pill.dev {
+      color: #0284c7;
+      background: rgba(14, 165, 233, 0.12);
+    }
+
+    .pill.later {
+      background: rgba(156, 163, 175, 0.16);
+      color: #c4c4c4;
+      border: 1px solid rgba(156, 163, 175, 0.28);
+    }
+
+    body.light .pill.later { color: #6b7280; }
+
+    .clock-card {
+      grid-column: 2;
+      grid-row: 1;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding-top: 12px;
+      padding-bottom: 12px;
+      background:
+        radial-gradient(ellipse 90% 70% at 50% 55%, rgba(255, 110, 40, 0.05), transparent 72%),
+        var(--card);
+    }
+
+    .nixie {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 6px;
+      width: auto;
+    }
+
+    .tube {
+      position: relative;
+      width: 34px;
+      height: 58px;
+      flex: 0 0 34px;
+      border-radius: 18px 18px 16px 16px;
+      background:
+        linear-gradient(90deg, rgba(0,0,0,0.45), transparent 18%, transparent 82%, rgba(0,0,0,0.5)),
+        radial-gradient(circle at 50% 40%, rgba(255, 150, 60, 0.22), rgba(20, 8, 4, 0.92) 70%);
+      border: 1px solid rgba(255, 176, 90, 0.28);
+      box-shadow:
+        inset 0 0 18px rgba(255, 90, 20, 0.28),
+        inset 0 -12px 16px rgba(0, 0, 0, 0.45),
+        0 8px 18px rgba(0, 0, 0, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .tube::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0 1px, transparent 1px 4px),
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.04) 0 1px, transparent 1px 5px);
+      mix-blend-mode: overlay;
+      pointer-events: none;
+    }
+
+    .tube::after { content: none; }
+
+    .tube span {
+      position: relative;
+      z-index: 1;
+      font-family: "Courier New", ui-monospace, monospace;
+      font-weight: 700;
+      font-size: 1.7rem;
+      color: #ffb15a;
+      text-shadow:
+        0 0 6px #ff8a2a,
+        0 0 14px #ff5a12,
+        0 0 28px rgba(255, 80, 10, 0.85);
+      line-height: 1;
+    }
+
+    .colon {
+      width: auto;
+      height: auto;
+      background: none;
+      border: 0;
+      box-shadow: none;
+      color: #ff9a4a;
+      font-size: 1.2rem;
+      text-shadow: 0 0 10px #ff6a1a;
+      padding-bottom: 12px;
+    }
+
+    .colon::before, .colon::after { display: none; }
+
+    .meridiem {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 4px;
+      margin-left: 4px;
+      height: 58px;
+    }
+
+    .meridiem .tube {
+      width: 30px;
+      height: 27px;
+      flex: 0 0 27px;
+      border-radius: 8px;
+    }
+
+    .meridiem .tube span {
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      opacity: 0.35;
+    }
+
+    .meridiem .tube.on span {
+      opacity: 1;
+    }
+
+    .clock-date {
+      font-size: 0.84rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255, 196, 140, 0.78);
+    }
+
+    body.light .clock-card {
+      background: var(--card);
+    }
+
+    body.light .nixie,
+    body.light .clock-date { display: none; }
+
+    .flip-clock { display: none; }
+
+    body.light .flip-clock {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .flaps {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .flap {
+      position: relative;
+      width: clamp(46px, 5.4vw, 70px);
+      height: clamp(56px, 7vw, 84px);
+      border-radius: 8px;
+      background: linear-gradient(#3a3a3a 0 50%, #242424 50% 100%);
+      box-shadow: 0 10px 18px rgba(24, 18, 42, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+      color: #f6f3ee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      perspective: 240px;
+    }
+
+    .flap::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 1px;
+      background: rgba(0, 0, 0, 0.55);
+      z-index: 2;
+    }
+
+    .flap span {
+      font-family: Oswald, Impact, "Arial Narrow", sans-serif;
+      font-weight: 500;
+      font-size: clamp(1.95rem, 3.35vw, 3.15rem);
+      line-height: 1;
+      transform-origin: center;
+    }
+
+    .flap.mer {
+      width: clamp(72px, 7.6vw, 96px);
+    }
+
+    .flap.mer span {
+      font-family: Inter, system-ui, sans-serif;
+      font-weight: 600;
+      font-size: clamp(1.45rem, 2.15vw, 1.85rem);
+      letter-spacing: 0.14em;
+    }
+
+    .flap.word {
+      width: auto;
+      min-width: clamp(92px, 11vw, 148px);
+      padding: 0 12px;
+      height: clamp(36px, 4.4vw, 48px);
+    }
+
+    .flap.word span,
+    .flap.day span {
+      font-family: Inter, system-ui, sans-serif;
+      font-size: clamp(0.98rem, 1.35vw, 1.22rem);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .flap.day {
+      width: clamp(42px, 4.6vw, 56px);
+      height: clamp(36px, 4.4vw, 48px);
+    }
+
+    .flap.is-flipping span {
+      animation: flapTurn 0.42s ease;
+    }
+
+    @keyframes flapTurn {
+      0% { transform: rotateX(0); }
+      45% { transform: rotateX(-88deg); }
+      55% { transform: rotateX(88deg); }
+      100% { transform: rotateX(0); }
+    }
+
+    .flip-colon {
+      font-size: clamp(1.4rem, 2.4vw, 2.2rem);
+      font-weight: 700;
+      color: #1a1a1a;
+      padding-bottom: 6px;
+    }
+
+    .flip-date {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .eq {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 16px;
+    }
+
+    .eq i {
+      display: block;
+      width: 3px;
+      height: 6px;
+      border-radius: 2px;
+      background: #c4a0ff;
+      animation: eq 0.9s ease-in-out infinite;
+    }
+
+    .eq i:nth-child(2) { animation-delay: 0.15s; }
+    .eq i:nth-child(3) { animation-delay: 0.28s; }
+    .eq i:nth-child(4) { animation-delay: 0.08s; }
+
+    @keyframes eq {
+      0%, 100% { height: 5px; }
+      50% { height: 16px; }
+    }
+
+    @media (max-width: 980px) {
+      .stage { padding: 8px 10px 10px; gap: 16px; }
+      .bento {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 0.9fr repeat(5, minmax(0, 0.72fr));
+        gap: 8px;
+      }
+      .clock-card { grid-column: 1 / -1; grid-row: 1; }
+      .card { padding: 10px 12px; border-radius: 16px; }
+      .map-icon { width: 2.2rem; height: 2.2rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .site-nav-link.portal, .eq i { animation: none; }
+    }
+  </style>
 </head>
-<body style="margin:0; padding:0; background:#000000;">
+<body>
+  <button class="toggle-btn" id="theme-toggle" type="button" aria-label="Dark mode">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.15"/><line x1="12" y1="2.4" x2="12" y2="5.1"/><line x1="12" y1="18.9" x2="12" y2="21.6"/><line x1="2.4" y1="12" x2="5.1" y2="12"/><line x1="18.9" y1="12" x2="21.6" y2="12"/><line x1="5.2" y1="5.2" x2="7.1" y2="7.1"/><line x1="16.9" y1="16.9" x2="18.8" y2="18.8"/><line x1="18.8" y1="5.2" x2="16.9" y2="7.1"/><line x1="7.1" y1="16.9" x2="5.2" y2="18.8"/></svg>
+  </button>
+
+  <div class="stage">
+    <div class="site-nav">
+      <p class="site-link">
+        <a href="https://portal.briancrink.com" class="site-nav-link portal">Portal</a>
+        <a href="https://site.briancrink.com/map" class="map-link" aria-label="Site map"><svg class="map-icon" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <clipPath id="mapFillPortal"><path d="M3.15 7.85 L8.85 4.55 L15.05 8.05 L20.7 4.75 L20.7 16.25 L15.05 19.55 L8.85 16.05 L3.15 19.35 Z"/></clipPath>
+          <g clip-path="url(#mapFillPortal)">
+            <path d="M3.15 7.85 L8.85 4.55 L15.05 8.05 L20.7 4.75 L20.7 16.25 L15.05 19.55 L8.85 16.05 L3.15 19.35 Z" fill="#3f8f4e"/>
+            <path d="M3.15 19.35 C 8.85 11.05, 15.05 13.8, 20.7 8.75 V 14.65 C 18.9 15.9, 16.15 18.4, 14.85 19.35 L 3.15 19.35 Z" fill="#3a86ff"/>
+          </g>
+          <path d="M3.15 7.85 L8.85 4.55 L15.05 8.05 L20.7 4.75 L20.7 16.25 L15.05 19.55 L8.85 16.05 L3.15 19.35 Z" fill="none" stroke="rgba(47, 58, 51, 0.32)" stroke-width="0.85"/>
+          <line x1="8.85" y1="6.2" x2="8.85" y2="14.4" stroke="rgba(255,255,255,0.62)" stroke-width="0.36" stroke-linecap="round" stroke-dasharray="0.42 2.25"/>
+          <line x1="15.05" y1="9.7" x2="15.05" y2="17.9" stroke="rgba(255,255,255,0.62)" stroke-width="0.36" stroke-linecap="round" stroke-dasharray="0.42 2.25"/>
+          <g>
+            <circle cx="6.114" cy="14.75" r="2.38" fill="#ffffff" stroke="#2eb5e8" stroke-width="0.58"/>
+            <path d="M7.259 13.605 L5.605 14.241 L6.623 15.259 Z" fill="#ef4a3c"/>
+            <path d="M4.969 15.895 L5.605 14.241 L6.623 15.259 Z" fill="#33b7e8"/>
+            <circle cx="6.114" cy="14.75" r="0.46" fill="#ffffff"/>
+          </g>
+          <line x1="19.545" y1="13.689" x2="22.395" y2="16.539" stroke="#e0b36a" stroke-width="1.85" stroke-linecap="round"/>
+          <circle cx="16.858" cy="11.002" r="2.85" fill="rgba(90, 190, 255, 0.38)" stroke="#8b9098" stroke-width="0.82"/>
+        </svg></a>
+        <a href="https://portal.briancrink.com/#life" class="site-nav-link life">LifeOS</a>
+      </p>
+    </div>
+
+    <main class="bento">
+      <article class="card">
+        <span class="card-kicker">Current Focus</span>
+        <h2>Develop: LifeOS · Dashboard</h2>
+        <p>1 hour 45 minutes Remaining</p>
+      </article>
+      <article class="card">
+        <span class="card-kicker">Next Focus</span>
+        <h2>Develop: LearnOS</h2>
+        <p>In 3 hours 15 minutes · 2:00 PM</p>
+      </article>
+      <article class="card">
+        <span class="card-kicker">Next Trip</span>
+        <h2>None Scheduled</h2>
+        <p>In # days · Date</p>
+      </article>
+      <article class="card">
+        <span class="card-kicker">Now Brewing</span>
+        <h2>Trader Joe's - Joe</h2>
+        <p>100% Arabica · Light Roast</p>
+      </article>
+      <article class="card clock-card">
+        <div class="nixie" id="nixie" aria-live="polite"></div>
+        <div class="clock-date" id="clock-date"></div>
+        <div class="flip-clock" id="flip-clock">
+          <div class="flaps">
+            <div class="flap" data-key="h1"><span>0</span></div>
+            <div class="flap" data-key="h2"><span>0</span></div>
+            <div class="flip-colon">:</div>
+            <div class="flap" data-key="m1"><span>0</span></div>
+            <div class="flap" data-key="m2"><span>0</span></div>
+            <div class="flap mer" data-key="mer"><span>AM</span></div>
+          </div>
+          <div class="flip-date" id="flip-date">
+            <div class="flap word" data-key="weekday"><span>Friday</span></div>
+            <div class="flap word" data-key="month"><span>October</span></div>
+            <div class="flap day" data-key="day"><span>2</span></div>
+          </div>
+        </div>
+      </article>
+      <article class="card">
+        <span class="card-kicker">Now Playing</span>
+        <h2>Chamber of Reflection</h2>
+        <p>Mac DeMarco · Salad Days</p>
+        <div class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      </article>
+      <article class="card">
+        <span class="card-kicker">Current Podcast</span>
+        <h2>The Art of Manliness</h2>
+        <p>Episode queued · placeholder</p>
+      </article>
+      <article class="card">
+        <span class="card-kicker">Current Audiobook</span>
+        <h2>The Road to Serfdom</h2>
+        <p>FA Hayek · Political Philosophy · 3h 12m remaining</p>
+      </article>
+      <article class="card">
+        <span class="card-kicker">Current Book</span>
+        <h2>Designing Event-Driven Systems</h2>
+        <p>Ben Stopford · Page 34</p>
+      </article>
+      <article class="card">
+        <span class="card-kicker">Binging</span>
+        <h2>Doctor Who</h2>
+        <p>Season 3 · Episode 4 · Title</p>
+      </article>
+      <article class="card">
+        <span class="card-kicker">Next Movie</span>
+        <h2>Donnie Darko</h2>
+        <p>Film · Queued</p>
+      </article>
+    </main>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById('theme-toggle');
+    const body = document.body;
+    const sunIcon = toggleBtn.innerHTML;
+    const moonIcon = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 14.35A9 9 0 1 1 9.65 3 7.15 7.15 0 0 0 21 14.35z"/></svg>';
+
+    function setToggleIcon() {
+      const isLight = body.classList.contains('light');
+      toggleBtn.innerHTML = isLight ? moonIcon : sunIcon;
+      toggleBtn.setAttribute('aria-label', isLight ? 'Dark mode' : 'Light mode');
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      body.classList.toggle('light');
+      setToggleIcon();
+    });
+    setToggleIcon();
+
+    const nixie = document.getElementById('nixie');
+    const dateEl = document.getElementById('clock-date');
+    const flaps = {};
+    document.querySelectorAll('.flap').forEach((el) => { flaps[el.dataset.key] = el; });
+
+    function setFlap(key, value) {
+      const flap = flaps[key];
+      if (!flap) return;
+      const span = flap.querySelector('span');
+      if (span.textContent === value) return;
+      span.textContent = value;
+      flap.classList.remove('is-flipping');
+      void flap.offsetWidth;
+      flap.classList.add('is-flipping');
+    }
+
+    function tube(char, extra) {
+      const el = document.createElement('div');
+      el.className = 'tube' + (extra ? ' ' + extra : '');
+      const span = document.createElement('span');
+      span.textContent = char;
+      el.appendChild(span);
+      return el;
+    }
+
+    const slots = [];
+    function buildClock() {
+      nixie.replaceChildren();
+      slots.length = 0;
+      ['h1', 'h2', ':', 'm1', 'm2', ':', 's1', 's2'].forEach((key) => {
+        if (key === ':') {
+          const c = document.createElement('div');
+          c.className = 'colon';
+          c.textContent = ':';
+          nixie.appendChild(c);
+          return;
+        }
+        const t = tube('0');
+        nixie.appendChild(t);
+        slots.push(t.querySelector('span'));
+      });
+      const mer = document.createElement('div');
+      mer.className = 'meridiem';
+      const am = tube('AM');
+      const pm = tube('PM');
+      am.dataset.mer = 'AM';
+      pm.dataset.mer = 'PM';
+      mer.append(am, pm);
+      nixie.appendChild(mer);
+    }
+
+    function tick() {
+      const now = new Date();
+      let h = now.getHours();
+      const mer = h >= 12 ? 'PM' : 'AM';
+      h = h % 12 || 12;
+      const text = String(h).padStart(2, '0')
+        + String(now.getMinutes()).padStart(2, '0')
+        + String(now.getSeconds()).padStart(2, '0');
+      slots.forEach((span, i) => { span.textContent = text[i]; });
+      nixie.querySelectorAll('[data-mer]').forEach((el) => {
+        el.classList.toggle('on', el.dataset.mer === mer);
+      });
+      dateEl.textContent = now.toLocaleDateString(undefined, {
+        weekday: 'long', month: 'long', day: 'numeric'
+      });
+      const hh = String(h).padStart(2, '0');
+      const mm = String(now.getMinutes()).padStart(2, '0');
+      setFlap('h1', hh[0]);
+      setFlap('h2', hh[1]);
+      setFlap('m1', mm[0]);
+      setFlap('m2', mm[1]);
+      setFlap('mer', mer);
+      setFlap('weekday', now.toLocaleDateString('en-US', { weekday: 'long' }));
+      setFlap('month', now.toLocaleDateString('en-US', { month: 'long' }));
+      setFlap('day', String(now.getDate()));
+    }
+
+    buildClock();
+    tick();
+    setInterval(tick, 1000);
+  </script>
 </body>
 </html>
