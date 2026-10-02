@@ -273,6 +273,18 @@
       backdrop-filter: none;
     }
 
+    .brew-card { position: relative; }
+
+    .brew-logo {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      width: 48px;
+      line-height: 0;
+    }
+
+    .brew-logo svg { display: block; width: 100%; height: auto; }
+
     .card-kicker {
       font-size: 0.68rem;
       letter-spacing: 0.12em;
@@ -687,7 +699,8 @@
         <h2>None Scheduled</h2>
         <p>In # days · Date</p>
       </article>
-      <article class="card">
+      <article class="card brew-card">
+        <a class="brew-logo" href="https://indieweb.org/coffee" aria-label="IndieWeb Coffee"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 782 242" role="img" aria-label="IndieWebCamp logo"><g fill="#FF0100"><rect x="4.52" y="12.19" width="216" height="60.46"/><rect x="4.52" y="94.7" width="216.01" height="131.57"/></g><g fill="#FF5C00"><polygon points="244.36,12.23 352.03,242 353.31,242 386.8,170.49 312.98,12.17"/><polygon points="337.99,12.23 445.26,242 446.68,242 554.29,12.2"/></g><path fill="#FFB101" d="M774.57 108.51H658.24A11.33 11.33 0 0 0 658.24 131.17H774.63A116.99 116.99 0 1 1 774.57 108.51Z"/></svg></a>
         <span class="card-kicker">Now Brewing</span>
         <h2>Joe</h2>
         <h3>Trader Joe's</h3>
