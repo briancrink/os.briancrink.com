@@ -142,6 +142,27 @@
       letter-spacing: -0.5px;
       text-align: center;
       line-height: 1.1;
+      display: grid;
+      justify-items: center;
+      align-items: center;
+    }
+
+    .name-link, .name-glance { grid-area: 1 / 1; }
+
+    .name-glance {
+      font: inherit;
+      color: inherit;
+      letter-spacing: inherit;
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    .name-glance .bc-letter {
+      opacity: 0;
+      animation-duration: 10.8s;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
     }
 
     body.light .name { color: #1a1a1a; }
@@ -154,6 +175,55 @@
     }
 
     .name-link:hover { opacity: 0.85; }
+
+    .name-link .bc-letter {
+      opacity: 0;
+      animation-duration: 10.8s;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+    }
+
+    .name-link .bc-letter:nth-child(1) { animation-name: bcLetter1; }
+    .name-link .bc-letter:nth-child(2) { animation-name: bcLetter2; }
+    .name-link .bc-letter:nth-child(3) { animation-name: bcLetter3; }
+    .name-link .bc-letter:nth-child(4) { animation-name: bcLetter4; }
+    .name-link .bc-letter:nth-child(5) { animation-name: bcLetter5; }
+    .name-link .bc-letter:nth-child(6) { animation-name: bcLetter6; }
+    .name-link .bc-letter:nth-child(7) { animation-name: bcLetter7; }
+    .name-link .bc-letter:nth-child(8) { animation-name: bcLetter8; }
+    .name-link .bc-letter:nth-child(9) { animation-name: bcLetter9; }
+    .name-link .bc-letter:nth-child(10) { animation-name: bcLetter10; }
+
+    .name-glance .bc-letter:nth-child(1) { animation-name: glLetter1; }
+    .name-glance .bc-letter:nth-child(2) { animation-name: glLetter2; }
+    .name-glance .bc-letter:nth-child(3) { animation-name: glLetter3; }
+    .name-glance .bc-letter:nth-child(4) { animation-name: glLetter4; }
+    .name-glance .bc-letter:nth-child(5) { animation-name: glLetter5; }
+    .name-glance .bc-letter:nth-child(6) { animation-name: glLetter6; }
+    .name-glance .bc-letter:nth-child(7) { animation-name: glLetter7; }
+    .name-glance .bc-letter:nth-child(8) { animation-name: glLetter8; }
+    .name-glance .bc-letter:nth-child(9) { animation-name: glLetter9; }
+
+    @keyframes bcLetter1 { 0% { opacity: 0; } 1.75% { opacity: 1; } 48.25% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 0; } }
+    @keyframes bcLetter2 { 0%, 0.8% { opacity: 0; } 2.55% { opacity: 1; } 47.45% { opacity: 1; } 49.2%, 50% { opacity: 0; } 100% { opacity: 0; } }
+    @keyframes bcLetter3 { 0%, 1.6% { opacity: 0; } 3.35% { opacity: 1; } 46.65% { opacity: 1; } 48.4%, 50% { opacity: 0; } 100% { opacity: 0; } }
+    @keyframes bcLetter4 { 0%, 2.4% { opacity: 0; } 4.15% { opacity: 1; } 45.85% { opacity: 1; } 47.6%, 50% { opacity: 0; } 100% { opacity: 0; } }
+    @keyframes bcLetter5 { 0%, 3.2% { opacity: 0; } 4.95% { opacity: 1; } 45.05% { opacity: 1; } 46.8%, 50% { opacity: 0; } 100% { opacity: 0; } }
+    @keyframes bcLetter6 { 0%, 4% { opacity: 0; } 5.75% { opacity: 1; } 44.25% { opacity: 1; } 46%, 50% { opacity: 0; } 100% { opacity: 0; } }
+    @keyframes bcLetter7 { 0%, 4.8% { opacity: 0; } 6.55% { opacity: 1; } 43.45% { opacity: 1; } 45.2%, 50% { opacity: 0; } 100% { opacity: 0; } }
+    @keyframes bcLetter8 { 0%, 5.6% { opacity: 0; } 7.35% { opacity: 1; } 42.65% { opacity: 1; } 44.4%, 50% { opacity: 0; } 100% { opacity: 0; } }
+    @keyframes bcLetter9 { 0%, 6.4% { opacity: 0; } 8.15% { opacity: 1; } 41.85% { opacity: 1; } 43.6%, 50% { opacity: 0; } 100% { opacity: 0; } }
+    @keyframes bcLetter10 { 0%, 7.2% { opacity: 0; } 8.95% { opacity: 1; } 41.05% { opacity: 1; } 42.8%, 50% { opacity: 0; } 100% { opacity: 0; } }
+    @keyframes glLetter1 { 0%, 50% { opacity: 0; } 51.75% { opacity: 1; } 98.25% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes glLetter2 { 0%, 50%, 50.8% { opacity: 0; } 52.55% { opacity: 1; } 97.45% { opacity: 1; } 99.2%, 100% { opacity: 0; } }
+    @keyframes glLetter3 { 0%, 50%, 51.6% { opacity: 0; } 53.35% { opacity: 1; } 96.65% { opacity: 1; } 98.4%, 100% { opacity: 0; } }
+    @keyframes glLetter4 { 0%, 50%, 52.4% { opacity: 0; } 54.15% { opacity: 1; } 95.85% { opacity: 1; } 97.6%, 100% { opacity: 0; } }
+    @keyframes glLetter5 { 0%, 50%, 53.2% { opacity: 0; } 54.95% { opacity: 1; } 95.05% { opacity: 1; } 96.8%, 100% { opacity: 0; } }
+    @keyframes glLetter6 { 0%, 50%, 54% { opacity: 0; } 55.75% { opacity: 1; } 94.25% { opacity: 1; } 96%, 100% { opacity: 0; } }
+    @keyframes glLetter7 { 0%, 50%, 54.8% { opacity: 0; } 56.55% { opacity: 1; } 93.45% { opacity: 1; } 95.2%, 100% { opacity: 0; } }
+    @keyframes glLetter8 { 0%, 50%, 55.6% { opacity: 0; } 57.35% { opacity: 1; } 92.65% { opacity: 1; } 94.4%, 100% { opacity: 0; } }
+    @keyframes glLetter9 { 0%, 50%, 56.4% { opacity: 0; } 58.15% { opacity: 1; } 91.85% { opacity: 1; } 93.6%, 100% { opacity: 0; } }
+
 
     .toggle-btn {
       position: fixed;
@@ -561,7 +631,9 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .site-nav-link.portal, .eq i { animation: none; }
+      .site-nav-link.portal, .eq i, .name-link .bc-letter, .name-glance .bc-letter { animation: none; }
+      .name-link .bc-letter { opacity: 1; }
+      .name-glance { display: none; }
     }
   </style>
 </head>
@@ -596,7 +668,7 @@
         <a href="https://portal.briancrink.com/#life" class="site-nav-link life">LifeOS</a>
       </p>
     </div>
-    <h1 class="name"><a href="https://briancrink.com" class="name-link">Brian Crink</a></h1>
+    <h1 class="name"><a href="https://briancrink.com" class="name-link"><span class="bc-letter">B</span><span class="bc-letter">r</span><span class="bc-letter">i</span><span class="bc-letter">a</span><span class="bc-letter">n</span> <span class="bc-letter">C</span><span class="bc-letter">r</span><span class="bc-letter">i</span><span class="bc-letter">n</span><span class="bc-letter">k</span></a><span class="name-glance" aria-hidden="true"><span class="bc-letter">A</span><span class="bc-letter">t</span> <span class="bc-letter">a</span> <span class="bc-letter">G</span><span class="bc-letter">l</span><span class="bc-letter">a</span><span class="bc-letter">n</span><span class="bc-letter">c</span><span class="bc-letter">e</span></span></h1>
     </header>
 
     <main class="bento">
