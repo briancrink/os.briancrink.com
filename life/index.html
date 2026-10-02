@@ -172,7 +172,8 @@
       padding: 14px 16px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: flex-start;
+      gap: 10px;
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
 
@@ -190,15 +191,26 @@
     }
 
     .card h2 {
+      margin-top: auto;
       font-size: clamp(1rem, 1.5vw, 1.35rem);
       font-weight: 600;
-      letter-spacing: -0.02em;
-      line-height: 1.15;
+      letter-spacing: -0.02rem;
+      line-height: 1.05;
+    }
+
+    .card h3 {
+      margin-top: 4px;
+      font-size: clamp(1rem, 1.2vw, 1rem);
+      font-weight: 600;
+      letter-spacing: -0.02rem;
+      line-height: 1;
+      color: var(--muted);
     }
 
     .card p {
       font-size: clamp(0.72rem, 1vw, 0.86rem);
       color: var(--muted);
+      margin-top: auto
     }
 
     .pill {
@@ -460,8 +472,14 @@
       gap: 8px;
     }
 
-    .eq {
+    .now-playing {
       display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .eq {
+      display: inline-flex;
       align-items: flex-end;
       gap: 3px;
       height: 16px;
@@ -551,8 +569,9 @@
       </article>
       <article class="card">
         <span class="card-kicker">Now Brewing</span>
-        <h2>Trader Joe's - Joe</h2>
-        <p>100% Arabica · Light Roast</p>
+        <h2>Joe</h2>
+        <h3>Trader Joe's</h3>
+        <p>Arabica · Light Roast</p>
       </article>
       <article class="card clock-card">
         <div class="nixie" id="nixie" aria-live="polite"></div>
@@ -574,35 +593,42 @@
         </div>
       </article>
       <article class="card">
-        <span class="card-kicker">Now Playing</span>
+        <div class="now-playing">
+          <span class="card-kicker">Now Playing</span>
+          <div class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+        </div>
         <h2>Chamber of Reflection</h2>
-        <p>Mac DeMarco · Salad Days</p>
-        <div class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+        <h3>Mac DeMarco</h3>
+        <p>Salad Days · Psychedelic Rock</p>
       </article>
       <article class="card">
         <span class="card-kicker">Current Podcast</span>
-        <h2>The Art of Manliness</h2>
-        <p>Episode queued · placeholder</p>
+        <h2>Why Modern Convenience Feels So Inconvenient</h2>
+        <h3>The Art of Manliness</h3>
+        <p>Philosophy · Episode: 1135</p>
       </article>
       <article class="card">
         <span class="card-kicker">Current Audiobook</span>
         <h2>The Road to Serfdom</h2>
-        <p>FA Hayek · Political Philosophy · 3h 12m remaining</p>
+        <h3>FA Hayek</h3>
+        <p>Political Philosophy · 3h 12m remaining</p>
       </article>
       <article class="card">
         <span class="card-kicker">Current Book</span>
         <h2>Designing Event-Driven Systems</h2>
-        <p>Ben Stopford · Page 34</p>
+        <h3>Ben Stopford</h3>
+        <p>Software Architecture · Page 34</p>
       </article>
       <article class="card">
         <span class="card-kicker">Binging</span>
-        <h2>Doctor Who</h2>
-        <p>Season 3 · Episode 4 · Title</p>
+        <h2>The Day of the Doctor</h2>
+        <h3>Doctor Who</h3>
+        <p>Season 7 · Episode 15</p>
       </article>
       <article class="card">
         <span class="card-kicker">Next Movie</span>
         <h2>Donnie Darko</h2>
-        <p>Film · Queued</p>
+        <p>Film · Psychological Thriller</p>
       </article>
     </main>
   </div>
